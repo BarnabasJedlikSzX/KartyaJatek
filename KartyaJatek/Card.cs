@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace KartyaJatek
 {
-    public class Card
+    public class Kartya
     {
-        public string Suit { get; set; }
-        public string Value { get; set; }
-        public int Points { get; set; }
+        public string Szin { get; set; }
+        public string Ertek { get; set; }
+        public int Pont { get; set; }
 
-        public Card(string suit, string value, int points)
+        public Kartya(string szin, string ertek, int pont)
         {
-            Suit = suit;
-            Value = value;
-            Points = points;
+            this.Szin = szin;
+            this.Ertek = ertek;
+            this.Pont = pont;
         }
 
     }

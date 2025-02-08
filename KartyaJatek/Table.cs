@@ -6,26 +6,26 @@ using System.Threading.Tasks;
 
 namespace KartyaJatek
 {
-    public class Table
+    public class Asztal
     {
-        public Deck Deck { get; set; }
-        public Player Player { get; set; }
-        public Player Dealer { get; set; }
+        public Pakli Pakli { get; set; }
+        public Jatekos Játékos { get; set; }
+        public Jatekos Osztó { get; set; }
 
-        public Table(string playerName)
+        public Asztal(string playerName)
         {
-            Deck = new Deck();
-            Deck.Shuffle();
-            Player = new Player(playerName);
-            Dealer = new Player("Dealer", true); // Dealer is AI
+            this.Pakli = new Pakli();
+            Pakli.Shuffle();
+            this.Játékos = new Jatekos(playerName);
+            this.Osztó = new Jatekos("Osztó", true); // Dealer is AI
         }
 
         public void DealInitialCards()
         {
-            Player.Hand.Add(Deck.DealCard());
-            Dealer.Hand.Add(Deck.DealCard());
-            Player.Hand.Add(Deck.DealCard());
-            Dealer.Hand.Add(Deck.DealCard());
+            Játékos.Kéz.Add(Pakli.DealCard());
+            Osztó.Kéz.Add(Pakli.DealCard());
+            Játékos.Kéz.Add(Pakli.DealCard());
+            Osztó.Kéz.Add(Pakli.DealCard());
         }
 
         public void PlayRound()
@@ -33,25 +33,25 @@ namespace KartyaJatek
             DealInitialCards();
 
             // Player's turn
-            while (Player.DecideHitOrStand())
+            while (Játékos.DecideHitOrStand())
             {
-                Player.Hand.Add(Deck.DealCard());
-                Player.ShowHand();
-                if (Player.GetHandValue() > 21)
+                Játékos.Kéz.Add(Pakli.DealCard());
+                Játékos.ShowHand();
+                if (Játékos.GetHandValue() > 21)
                 {
-                    Console.WriteLine("You busted!");
+                    Console.WriteLine("BUUUUUUUUUUUUUUUUUST!");
                     return;
                 }
             }
 
             // Dealer's turn
-            while (Dealer.GetHandValue() < 17)
+            while (Osztó.GetHandValue() < 17)
             {
-                Dealer.Hand.Add(Deck.DealCard());
-                Dealer.ShowHand(true);
-                if (Dealer.GetHandValue() > 21)
+                Osztó.Kéz.Add(Pakli.DealCard());
+                Osztó.ShowHand(true);
+                if (Osztó.GetHandValue() > 21)
                 {
-                    Console.WriteLine("Dealer busts! You win!");
+                    Console.WriteLine("Az osztó bustolt! Nyertél!");
                     return;
                 }
             }
@@ -62,28 +62,28 @@ namespace KartyaJatek
 
         public void DetermineWinner()
         {
-            int playerValue = Player.GetHandValue();
-            int dealerValue = Dealer.GetHandValue();
+            int playerValue = Játékos.GetHandValue();
+            int dealerValue = Osztó.GetHandValue();
 
             if (playerValue > 21)
             {
-                Console.WriteLine("You busted! Dealer wins.");
+                Console.WriteLine("Bustoltál! Az osztó nyert.");
             }
             else if (dealerValue > 21)
             {
-                Console.WriteLine("Dealer busts! You win.");
+                Console.WriteLine("Az osztó elbustolt! Nyertél.");
             }
             else if (playerValue > dealerValue)
             {
-                Console.WriteLine("You win!");
+                Console.WriteLine("Nyertél!");
             }
             else if (playerValue < dealerValue)
             {
-                Console.WriteLine("Dealer wins!");
+                Console.WriteLine("Az osztó nyert!");
             }
             else
             {
-                Console.WriteLine("It's a tie!");
+                Console.WriteLine("Döntetlen!");
             }
         }
     }

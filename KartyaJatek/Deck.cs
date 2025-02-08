@@ -6,27 +6,27 @@ using System.Threading.Tasks;
 
 namespace KartyaJatek
 {
-    public class Deck
+    public class Pakli
     {
         Random random = new Random();
-        public List<Card> Cards { get; set; }
+        public List<Kartya> Kartyak { get; set; }
 
-        public Deck()
+        public Pakli()
         {
-            Cards = new List<Card>();
+            Kartyak = new List<Kartya>();
             InitializeDeck();
         }
 
         private void InitializeDeck()
         {
-            string[] suits = { "Hearts", "Diamonds", "Clubs", "Spades" };
-            string[] values = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace" };
+            string[] suits = { "Kőr", "Káró", "Treff", "Pikk" };
+            string[] values = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Bubi", "Dáma", "Király", "Ász" };
             foreach (var suit in suits)
             {
                 foreach (var value in values)
                 {
                     int points = GetCardPoints(value);
-                    Cards.Add(new Card(suit, value, points));
+                    Kartyak.Add(new Kartya(suit, value, points));
                 }
             }
         }
@@ -35,11 +35,11 @@ namespace KartyaJatek
         {
             switch (value)
             {
-                case "Jack":
-                case "Queen":
-                case "King":
+                case "Bubi":
+                case "Dáma":
+                case "Király":
                     return 10;
-                case "Ace":
+                case "Ász":    
                     return 11;
                 default:
                     return int.Parse(value);
@@ -48,19 +48,19 @@ namespace KartyaJatek
 
         public void Shuffle()
         {
-            for (int i = 0; i < Cards.Count; i++)
+            for (int i = 0; i < Kartyak.Count; i++)
             {
-                int j = random.Next(i, Cards.Count);
-                var temp = Cards[i];
-                Cards[i] = Cards[j];
-                Cards[j] = temp;
+                int j = random.Next(i, Kartyak.Count);
+                var temp = Kartyak[i];
+                Kartyak[i] = Kartyak[j];
+                Kartyak[j] = temp;
             }
         }
 
-        public Card DealCard()
+        public Kartya DealCard()
         {
-            Card card = Cards[0];
-            Cards.RemoveAt(0);
+            Kartya card = Kartyak[0];
+            Kartyak.RemoveAt(0);
             return card;
         }
     }

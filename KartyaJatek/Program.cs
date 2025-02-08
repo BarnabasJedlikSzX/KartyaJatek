@@ -4,10 +4,10 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to Blackjack!");
-            Console.Write("Enter your name: ");
+            Console.WriteLine("Üdv a BlackJackben!");
+            Console.Write("Add meg a felhasználóneved: ");
             string playerName = Console.ReadLine();
-            Table game = new Table(playerName);
+            Asztal game = new Asztal(playerName);
 
             game.PlayRound();
         }
