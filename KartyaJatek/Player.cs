@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace KartyaJatek
 {
-    public class Player
+    public class Jatekos
     {
-        public string Name { get; set; }
-        public List<Card> Hand { get; set; }
+        public string Név { get; set; }
+        public List<Kartya> Kéz { get; set; }
         public bool IsAI { get; set; }
 
-        public Player(string name, bool isAI = false)
+        public Jatekos(string név, bool isAI = false)
         {
-            Name = name;
-            Hand = new List<Card>();
-            IsAI = isAI;
+            this.Név = név;
+            this.Kéz = new List<Kartya>();
+            this.IsAI = isAI;
         }
 
         public int GetHandValue()
@@ -24,10 +24,10 @@ namespace KartyaJatek
             int value = 0;
             int aceCount = 0;
 
-            foreach (var card in Hand)
+            foreach (var card in Kéz)
             {
-                value += card.Points;
-                if (card.Value == "Ace")
+                value += card.Pont;
+                if (card.Ertek == "Ace")
                     aceCount++;
             }
 
@@ -43,10 +43,10 @@ namespace KartyaJatek
 
         public void ShowHand(bool revealFullHand = true)
         {
-            Console.WriteLine($"{Name}'s Hand:");
-            foreach (var card in Hand)
+            Console.WriteLine($"{Név}'s Hand:");
+            foreach (var card in Kéz)
             {
-                Console.WriteLine($"{card.Value} of {card.Suit}");
+                Console.WriteLine($"{card.Ertek} of {card.Szin}");
             }
             Console.WriteLine($"Total: {GetHandValue()}");
         }
@@ -59,7 +59,7 @@ namespace KartyaJatek
             }
             else
             {
-                Console.WriteLine("Would you like to 'hit' or 'stand'?");
+                Console.WriteLine("Hit vagy stand?");
                 string choice = Console.ReadLine().ToLower();
                 return choice == "hit";
             }
