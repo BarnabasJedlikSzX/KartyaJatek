@@ -27,11 +27,10 @@ namespace KartyaJatek
             foreach (var card in Kéz)
             {
                 value += card.Pont;
-                if (card.Ertek == "Ace")
+                if (card.Ertek == "Ász")
                     aceCount++;
             }
 
-            // Adjust for aces (Ace can be 1 or 11)
             while (value > 21 && aceCount > 0)
             {
                 value -= 10;
@@ -43,19 +42,19 @@ namespace KartyaJatek
 
         public void ShowHand(bool revealFullHand = true)
         {
-            Console.WriteLine($"{Név}'s Hand:");
+            Console.WriteLine($"{Név} keze:");
             foreach (var card in Kéz)
             {
-                Console.WriteLine($"{card.Ertek} of {card.Szin}");
+                Console.WriteLine($"{card.Szin} {card.Ertek}");
             }
-            Console.WriteLine($"Total: {GetHandValue()}");
+            Console.WriteLine($"Összesen: {GetHandValue()}");
         }
 
         public bool DecideHitOrStand()
         {
             if (IsAI)
             {
-                return GetHandValue() < 17; // AI hits if hand value < 17
+                return GetHandValue() < 17; 
             }
             else
             {

@@ -17,22 +17,23 @@ namespace KartyaJatek
             this.Pakli = new Pakli();
             Pakli.Shuffle();
             this.Játékos = new Jatekos(playerName);
-            this.Osztó = new Jatekos("Osztó", true); // Dealer is AI
+            this.Osztó = new Jatekos("Osztó", true);
         }
 
         public void DealInitialCards()
         {
             Játékos.Kéz.Add(Pakli.DealCard());
             Osztó.Kéz.Add(Pakli.DealCard());
+            Osztó.ShowHand();
             Játékos.Kéz.Add(Pakli.DealCard());
             Osztó.Kéz.Add(Pakli.DealCard());
+            Játékos.ShowHand();
         }
 
         public void PlayRound()
         {
             DealInitialCards();
 
-            // Player's turn
             while (Játékos.DecideHitOrStand())
             {
                 Játékos.Kéz.Add(Pakli.DealCard());
@@ -44,11 +45,10 @@ namespace KartyaJatek
                 }
             }
 
-            // Dealer's turn
             while (Osztó.GetHandValue() < 17)
             {
                 Osztó.Kéz.Add(Pakli.DealCard());
-                Osztó.ShowHand(true);
+                Osztó.ShowHand();
                 if (Osztó.GetHandValue() > 21)
                 {
                     Console.WriteLine("Az osztó bustolt! Nyertél!");
@@ -56,7 +56,6 @@ namespace KartyaJatek
                 }
             }
 
-            // Compare hands
             DetermineWinner();
         }
 
