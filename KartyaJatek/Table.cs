@@ -30,7 +30,7 @@ namespace KartyaJatek
             Játékos.ShowHand();
         }
 
-        public void PlayRound()
+        public string PlayRound()
         {
             DealInitialCards();
 
@@ -40,8 +40,7 @@ namespace KartyaJatek
                 Játékos.ShowHand();
                 if (Játékos.GetHandValue() > 21)
                 {
-                    Console.WriteLine("BUUUUUUUUUUUUUUUUUST!");
-                    return;
+                    return "BUUUUUUUUUUUUUUUUUST!";
                 }
             }
 
@@ -51,38 +50,37 @@ namespace KartyaJatek
                 Osztó.ShowHand();
                 if (Osztó.GetHandValue() > 21)
                 {
-                    Console.WriteLine("Az osztó bustolt! Nyertél!");
-                    return;
+                    return "Az osztó bustolt! Nyertél!";
                 }
             }
 
             DetermineWinner();
         }
 
-        public void DetermineWinner()
+        public string DetermineWinner()
         {
             int playerValue = Játékos.GetHandValue();
             int dealerValue = Osztó.GetHandValue();
 
             if (playerValue > 21)
             {
-                Console.WriteLine("Bustoltál! Az osztó nyert.");
+                return "Bustoltál! Az osztó nyert.";
             }
             else if (dealerValue > 21)
             {
-                Console.WriteLine("Az osztó elbustolt! Nyertél.");
+                return "Az osztó elbustolt! Nyertél.";
             }
             else if (playerValue > dealerValue)
             {
-                Console.WriteLine("Nyertél!");
+                return "Nyertél!";
             }
             else if (playerValue < dealerValue)
             {
-                Console.WriteLine("Az osztó nyert!");
+                return "Az osztó nyert!";
             }
             else
             {
-                Console.WriteLine("Döntetlen!");
+                return "Döntetlen!";
             }
         }
     }
