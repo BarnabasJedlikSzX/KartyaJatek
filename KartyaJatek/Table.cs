@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace KartyaJatek
 {
@@ -30,17 +31,15 @@ namespace KartyaJatek
             Játékos.ShowHand();
         }
 
-        public string PlayRound()
+        public void Bust()
         {
-            DealInitialCards();
-
             while (Játékos.DecideHitOrStand())
             {
                 Játékos.Kéz.Add(Pakli.DealCard());
                 Játékos.ShowHand();
                 if (Játékos.GetHandValue() > 21)
                 {
-                    return "BUUUUUUUUUUUUUUUUUST!";
+                    Console.WriteLine("BUUUUUUUUUUUUUUUUUST!");
                 }
             }
 
@@ -50,37 +49,44 @@ namespace KartyaJatek
                 Osztó.ShowHand();
                 if (Osztó.GetHandValue() > 21)
                 {
-                    return "Az osztó bustolt! Nyertél!";
+                    Console.WriteLine("Az osztó bustolt! Nyertél!");
                 }
             }
+        }
 
+        public void PlayRound()
+        {
+            DealInitialCards();
+
+            Bust();
+            
             DetermineWinner();
         }
 
-        public string DetermineWinner()
+        public void DetermineWinner()
         {
             int playerValue = Játékos.GetHandValue();
             int dealerValue = Osztó.GetHandValue();
 
             if (playerValue > 21)
             {
-                return "Bustoltál! Az osztó nyert.";
+                Console.WriteLine("Bustoltál! Az osztó nyert."); 
             }
             else if (dealerValue > 21)
             {
-                return "Az osztó elbustolt! Nyertél.";
+                Console.WriteLine("Az osztó elbustolt! Nyertél."); 
             }
             else if (playerValue > dealerValue)
             {
-                return "Nyertél!";
+                Console.WriteLine("Nyertél!"); 
             }
             else if (playerValue < dealerValue)
             {
-                return "Az osztó nyert!";
+                Console.WriteLine("Az osztó nyert!"); 
             }
             else
             {
-                return "Döntetlen!";
+                Console.WriteLine("Döntetlen!"); 
             }
         }
     }

@@ -54,13 +54,25 @@ namespace KartyaJatek
         {
             if (IsAI)
             {
-                return GetHandValue() < 17; 
+                if (GetHandValue() < 17)
+                    return true;
+                else
+                    return false;
             }
             else
             {
+
                 Console.WriteLine("Hit vagy stand?");
-                string choice = Console.ReadLine().ToLower();
-                return choice == "hit";
+                string choice;
+                do
+                {
+                    choice = Console.ReadLine()!.ToLower();
+                } while (choice.ToLower() != "hit" && choice.ToLower() != "stand");
+                if (choice.ToLower() == "hit")
+                    return true;
+                else
+                    return false;
+
             }
         }
     }
