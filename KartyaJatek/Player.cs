@@ -62,13 +62,13 @@ namespace KartyaJatek
             else
             {
 
-                Console.WriteLine("Hit vagy stand?");
-                string choice;
+                Console.WriteLine("Hit vagy stand?(h/s)");
+                char choice;
                 do
                 {
-                    choice = Console.ReadLine()!.ToLower();
-                } while (choice.ToLower() != "hit" && choice.ToLower() != "stand");
-                if (choice.ToLower() == "hit")
+                    choice = Console.ReadKey(true).KeyChar;
+                } while (choice != 'h' && choice != 's');
+                if (choice == 'h')
                     return true;
                 else
                     return false;
